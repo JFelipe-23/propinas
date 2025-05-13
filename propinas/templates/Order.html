@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalles del Pedido</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #4a148c; /* Color de fondo morado oscuro */
+            font-family: 'Inter', sans-serif;
+            color: white;
+            padding: 20px; /* Añade un poco de espacio alrededor del contenido principal */
+            box-sizing: border-box; /* Incluye el padding en el ancho/alto del body */
+            text-align: left; /* Alinea el texto a la izquierda */
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            width: 100%; /* El contenedor ocupa todo el ancho disponible */
+            max-width: 400px; /* Ancho máximo para el contenedor */
+            background-color: #5e35b1; /* Un tono de morado más claro para el contenedor */
+            padding: 20px;
+            border-radius: 1rem; /* Bordes redondeados para el contenedor */
+            box-sizing: border-box; /* Incluye el padding en el ancho total */
+        }
+
+        .info-item {
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+            display: flex; /* Usa flexbox para alinear etiqueta y valor */
+            justify-content: space-between; /* Espacia la etiqueta y el valor */
+            align-items: center; /* Alinea verticalmente la etiqueta y el valor */
+        }
+
+        .info-label {
+            font-weight: 600; /* Texto en negrita para las etiquetas */
+            margin-right: 0.5rem; /* Espacio entre la etiqueta y el valor */
+            color: #f5f5f5; /* Color de texto para la etiqueta */
+            white-space: nowrap; /* Evita que las etiquetas se dividan en líneas */
+        }
+
+        .info-value {
+            /* El valor no necesita un estilo especial, pero se puede personalizar si es necesario */
+            color: #ffffff;
+        }
+
+        .order-details {
+            margin-top: 1rem;
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+            line-height: 1.5; /* Espaciado entre líneas para la lista de pedidos */
+        }
+
+        .order-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #f5f5f5;
+            font-size: 1.2rem;
+        }
+
+        .send-button {
+            padding: 0.75rem 2rem;
+            background-color: #e91e63;
+            color: white;
+            border: none;
+            border-radius: 0.5rem;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            align-self: center; /* Centra el botón */
+            width: auto; /* El botón se ajusta a su contenido */
+        }
+
+        .send-button:hover {
+            background-color: #c2185b;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="info-item">
+            <span class="info-label">Cliente:</span>
+            <span class="info-value">4</span>
+        </div>
+        <div class="info-item">
+            <span class="info-label">Mesa:</span>
+            <span class="info-value">4</span>
+        </div>
+        <div class="info-item">
+            <span class="info-label">Activo:</span>
+            <span class="info-value">Activo</span>
+        </div>
+
+        <div class="order-details">
+            <h2 class="order-title">Pedido:</h2>
+            <p>Pizza</p>
+            <p>Arroz</p>
+            <p>Jugo</p>
+            <p>Coca Cola</p>
+        </div>
+        <a href="Cliente_INICIO.html" class="nav-button">
+            <button class="send-button">Salir</button>
+        </a>
+    </div>
+</body>
+</html>

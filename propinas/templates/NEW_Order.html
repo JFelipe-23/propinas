@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>+Orden</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #4a148c; /* Color de fondo morado oscuro */
+            font-family: 'Inter', sans-serif;
+            color: white;
+            padding: 20px;
+            box-sizing: border-box;
+            text-align: left;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            max-width: 400px;
+            background-color: #5e35b1;
+            padding: 20px;
+            border-radius: 1rem;
+            box-sizing: border-box;
+        }
+
+        .info-item {
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .info-label {
+            font-weight: 600;
+            margin-right: 0.5rem;
+            color: #f5f5f5;
+            white-space: nowrap;
+        }
+
+        .info-value {
+            /* Estilos para los valores que no son editables */
+            color: #ffffff;
+            word-break: break-word; /* Permite saltos de línea si el texto es largo */
+        }
+
+        .order-details {
+            margin-top: 1rem;
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+            line-height: 1.5;
+        }
+
+        .order-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #f5f5f5;
+            font-size: 1.2rem;
+        }
+
+        .send-button {
+            padding: 0.75rem 2rem;
+            background-color: #e91e63;
+            color: white;
+            border: none;
+            border-radius: 0.5rem;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            align-self: center;
+            width: auto;
+        }
+
+        .send-button:hover {
+            background-color: #c2185b;
+        }
+
+        /* Estilos para los campos de entrada (editables) */
+        .editable-input {
+            padding: 0.5rem;
+            border: 1px solid #ffffff;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            width: 100%;
+            max-width: 200px; /* Limita el ancho de los inputs */
+            box-sizing: border-box;
+            background-color: #f3e5f5;
+            color: #311b92;
+        }
+
+        .editable-textarea {
+            padding: 0.5rem;
+            border: 1px solid #ffffff;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            width: 100%;
+            min-height: 4rem;
+            resize: vertical;
+            box-sizing: border-box;
+            background-color: #f3e5f5;
+            color: #311b92;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="info-item">
+            <span class="info-label">Cliente:</span>
+            <input type="text" value="4" class="editable-input">
+        </div>
+        <div class="info-item">
+            <span class="info-label">Mesa:</span>
+            <input type="text" value="4" class="editable-input">
+        </div>
+        <div class="order-details">
+            <h2 class="order-title">Pedido:</h2>
+            <textarea class="editable-textarea">Pizza
+Arroz
+Jugo
+Coca Cola</textarea>
+        </div>
+        <a href="Mesero_INICIO.html">
+            <button class="send-button">Enviar</button>
+        </a>
+    </div>
+</body>
+</html>

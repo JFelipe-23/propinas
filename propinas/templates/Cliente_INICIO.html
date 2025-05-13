@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Pedidos</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #4a148c;
+            font-family: 'Inter', sans-serif;
+            color: white;
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            width: 90%;
+            max-width: 400px;
+            box-sizing: border-box;
+        }
+
+        .order-list {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .order-button { /* Cambiamos el nombre de la clase a order-button */
+            padding: 1rem;
+            background-color: #6a1b9a;
+            color: white;
+            border: none;
+            border-radius: 0.5rem;
+            font-size: 1.1rem;
+            text-align: center;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            cursor: pointer; /* Agregamos cursor pointer para indicar que es un botón */
+            transition: background-color 0.3s ease; /* Agregamos transición para el hover */
+            text-decoration: none; /* Quitamos el subrayado por defecto de los enlaces */
+        }
+
+        .order-button:hover { /* Estilo para el hover del botón */
+            background-color: #4a148c;
+        }
+
+        .order-button > div {
+            margin: 0 0.5rem;
+            flex: 1;
+            min-width: 80px;
+            text-align: center;
+        }
+
+        .order-item-pedido {
+            font-weight: bold;
+        }
+
+        .exit-button {
+            padding: 0.75rem 2rem;
+            background-color: #e91e63;
+            color: white;
+            border: none;
+            border-radius: 0.5rem;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            width: auto;
+            align-self: center;
+        }
+
+        .exit-button:hover {
+            background-color: #c2185b;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="order-list">
+            <a href="Order.html" class="order-button">  <div class="order-item-pedido">Pedido</div>
+                <div>9/05/2025</div>
+                <div>Mesa 1</div>
+            </a>
+            <a href="Order.html" class="order-button">  <div class="order-item-pedido">Pedido</div>
+                <div>9/05/2025</div>
+                <div>Mesa 3</div>
+            </a>
+            <a href="Order.html" class="order-button">  <div class="order-item-pedido">Pedido</div>
+                <div>9/05/2025</div>
+                <div>Mesa 2</div>
+            </a>
+        </div>
+        <a href="Cliente.html" class="nav-button">
+            <button class="exit-button">Salir</button>
+        </a>
+    </div>
+</body>
+</html>
