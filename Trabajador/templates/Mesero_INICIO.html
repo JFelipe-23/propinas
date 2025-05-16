@@ -22,11 +22,13 @@
         .container {
             display: flex;
             flex-direction: column;
-            align-items: center;
+            width: 100%;
+            max-width: 400px;
+            background-color: #5e35b1;
             padding: 20px;
-            width: 90%;
-            max-width: 400px; /* Ancho máximo para el contenedor */
+            border-radius: 1rem;
             box-sizing: border-box;
+            align-items: center;
         }
 
         .nav-buttons {
@@ -93,20 +95,21 @@
 </head>
 <body>
     <div class="container">
+        <h1>INICIO</h1>
         <div class="nav-buttons">
-            <a href="NEW_Cliente.html" class="nav-button">
+            <a href="http://127.0.0.1:8000/NewClient/" class="nav-button">
                 <span class="icon new-client-icon"></span>
                 NEW CLIENT
             </a>
-            <a href="NEW_Order.html" class="nav-button">
+            <a href="http://127.0.0.1:8000/NewOrder/" class="nav-button">
                 <span class="icon new-order-icon"></span>
                 NEW ORDER
             </a>
-            <a href="EDIT_Order.html" class="nav-button">
+            <a href="http://127.0.0.1:8000/EditOrder/" class="nav-button">
                 <span class="icon order-icon"></span>
                 ORDER
             </a>
-            <a href="Mesero.html" class="nav-button">
+            <a href="http://127.0.0.1:8000/LogIn_2/" class="nav-button">
                 <span class="icon log-out-icon"></span>
                 LOG OUT
             </a>

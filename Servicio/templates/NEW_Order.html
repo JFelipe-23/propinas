@@ -29,6 +29,7 @@
             padding: 20px;
             border-radius: 1rem;
             box-sizing: border-box;
+            align-items: center;
         }
 
         .info-item {
@@ -84,7 +85,7 @@
         }
 
         /* Estilos para los campos de entrada (editables) */
-        .editable-input {
+        input, select {
             padding: 0.5rem;
             border: 1px solid #ffffff;
             border-radius: 0.5rem;
@@ -108,28 +109,32 @@
             background-color: #f3e5f5;
             color: #311b92;
         }
+        .form-container {
+            display: flex;
+            align-items: center; /* Alinea verticalmente el texto y el input */
+            margin-bottom: 2rem;
+            width: 100%; /* El contenedor del input ocupa el ancho completo */
+            justify-content: center; /* Centra los elementos horizontalmente */
+            gap: 0.5rem; /* Espacio entre el texto "CC:" y el input */
+            flex-direction: column;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="info-item">
-            <span class="info-label">Cliente:</span>
-            <input type="text" value="4" class="editable-input">
-        </div>
-        <div class="info-item">
-            <span class="info-label">Mesa:</span>
-            <input type="text" value="4" class="editable-input">
-        </div>
-        <div class="order-details">
-            <h2 class="order-title">Pedido:</h2>
-            <textarea class="editable-textarea">Pizza
-Arroz
-Jugo
-Coca Cola</textarea>
-        </div>
-        <a href="Mesero_INICIO.html">
-            <button class="send-button">Enviar</button>
+        <h1>Nueva Orden</h1>
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-container">
+                {{ form.as_p }}
+                <button class="send-button" type="submit">Crear</button>
+            </div>
+        </form>
+        <p></p>
+        <a href="http://127.0.0.1:8000/TrabajadorInicio/" class="nav-button">
+            <button class="send-button">Home</button>
         </a>
+    </div>
     </div>
 </body>
 </html>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Order</title>
+    <title>+Orden</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
     <style>
         body {
@@ -29,6 +29,7 @@
             padding: 20px;
             border-radius: 1rem;
             box-sizing: border-box;
+            align-items: center;
         }
 
         .info-item {
@@ -84,7 +85,7 @@
         }
 
         /* Estilos para los campos de entrada (editables) */
-        .editable-input {
+        input, select {
             padding: 0.5rem;
             border: 1px solid #ffffff;
             border-radius: 0.5rem;
@@ -108,32 +109,49 @@
             background-color: #f3e5f5;
             color: #311b92;
         }
+        .form-container {
+            display: flex;
+            align-items: center; /* Alinea verticalmente el texto y el input */
+            margin-bottom: 2rem;
+            width: 100%; /* El contenedor del input ocupa el ancho completo */
+            justify-content: center; /* Centra los elementos horizontalmente */
+            gap: 0.5rem; /* Espacio entre el texto "CC:" y el input */
+            flex-direction: column;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="info-item">
-            <span class="info-label">Cliente:</span>
-            <input type="text" value="4" class="editable-input">
-        </div>
-        <div class="info-item">
-            <span class="info-label">Mesa:</span>
-            <input type="text" value="4" class="editable-input">
-        </div>
-        <div class="info-item">
-            <span class="info-label">Activo:</span>
-            <input type="text" value="Activo" class="editable-input">
-        </div>
+        <h1>Buscar Servicio</h1>
+        <form method="get">
+            {% csrf_token %}
+            {{ form_busqueda.as_p }}
+            <button class="send-button" type="submit">Buscar</button>
+        </form>
 
-        <div class="order-details">
-            <h2 class="order-title">Pedido:</h2>
-            <textarea class="editable-textarea">Pizza
-Arroz
-Jugo
-Coca Cola</textarea>
-        </div>
-        <a href="Mesero_INICIO.html">
-            <button class="send-button">Enviar</button>
+        {% if resultados %}
+            <h2>Resultados de la búsqueda:</h2>
+            <ul>
+                {% for servicio in resultados %}
+                    <li>
+                        Servicio ID: {{ servicio.id }} - Activo: {{ servicio.activa }} - Cliente ID: {{ servicio.id_cliente }} - Fecha: {{ servicio.fecha }}
+                        <form method="post" style="display: inline;">
+                            {% csrf_token %}
+                            <input type="hidden" name="servicio_id" value="{{ servicio.id }}">
+                            <select name="activa">
+                                <option value="{{servicio.activa}}">{{servicio.activa}}</option>
+                                <option value="True">True</option>
+                                <option value="False">False</option>
+                            </select>
+                            <button class="send-button" type="submit">Guardar</button>
+                        </form>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        <p></p>
+        <a href="http://127.0.0.1:8000/TrabajadorInicio/" class="nav-button">
+            <button class="send-button">Home</button>
         </a>
     </div>
 </body>

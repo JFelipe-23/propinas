@@ -1,0 +1,64 @@
+from django.shortcuts import render,redirect, get_object_or_404
+from django.contrib import messages
+from Cliente.models import Cliente
+from Trabajador.models import Trabajador
+
+from .models import Servicio
+from .forms import ServicioF, ServicioBusquedaForm
+
+
+def  NewOrder(request):
+    if request.method == 'POST':
+        form = ServicioF(request.POST, opciones=buscarClientes)
+        if form.is_valid():
+            # Procesa los datos del formulario aquí
+            clienteid = int(form.cleaned_data['id_cliente'])
+            cliente = Cliente.objects.get(pk=clienteid)
+            trabajador = Trabajador.objects.get(pk=2666954585)
+            try:
+                servicio = Servicio(activa= True,calificacion=3,nota=None, id_cliente=cliente, id_trabajador=trabajador)
+                servicio.save()
+                return redirect('InicioT')
+            except:
+                return redirect('InicioT')
+    else:
+        form = ServicioF()
+    return render(request, 'NEW_Order.html',{'form': form})
+
+def gestionar_estado_servicio_simple(request):
+    resultados = []
+    form_busqueda = ServicioBusquedaForm()
+
+    if request.method == 'GET':
+        form_busqueda = ServicioBusquedaForm(request.GET, opciones=buscarClientes)
+        if form_busqueda.is_valid():
+            activa = form_busqueda.cleaned_data.get('activa')
+            id_cliente = form_busqueda.cleaned_data.get('id_cliente')
+
+            resultados = Servicio.objects.filter(activa = activa, id_cliente = id_cliente).values('id','fecha','activa', 'id_cliente')
+
+    elif request.method == 'POST' and 'servicio_id' in request.POST and 'activa' in request.POST:
+        try:
+            servicio_id = request.POST['servicio_id']
+            nuevo_estado = request.POST['activa']
+            print(servicio_id)
+            print(nuevo_estado)
+            servicio = Servicio.objects.get(id=servicio_id)
+            servicio.activa = nuevo_estado
+            servicio.save()
+            return redirect('gestionar_estado_simple') # Recarga la página para mostrar los cambios
+        except Servicio.DoesNotExist:
+            pass # Manejar si el servicio no existe (opcional)
+
+    context = {
+        'form_busqueda': form_busqueda,
+        'resultados': resultados,
+    }
+    return render(request, 'EDIT_Order.html', context)
+
+def buscarClientes():
+    clientes =  Cliente.objects.values_list('cc', flat=True)
+    Resultado = []
+    for cliente in clientes:
+        Resultado.append((cliente,cliente))
+    return Resultado

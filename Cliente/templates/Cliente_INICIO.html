@@ -90,20 +90,14 @@
 <body>
     <div class="container">
         <div class="order-list">
+            {% for servicio in servicios %}
             <a href="Order.html" class="order-button">  <div class="order-item-pedido">Pedido</div>
-                <div>9/05/2025</div>
-                <div>Mesa 1</div>
+                <div>{{ servicio["fecha"] }}</div>
+                <div>ID {{ servicio["ID"] }}</div>
             </a>
-            <a href="Order.html" class="order-button">  <div class="order-item-pedido">Pedido</div>
-                <div>9/05/2025</div>
-                <div>Mesa 3</div>
-            </a>
-            <a href="Order.html" class="order-button">  <div class="order-item-pedido">Pedido</div>
-                <div>9/05/2025</div>
-                <div>Mesa 2</div>
-            </a>
+            {% endfor %}
         </div>
-        <a href="Cliente.html" class="nav-button">
+        <a href="http://127.0.0.1:8000/LogIn/" class="nav-button">
             <button class="exit-button">Salir</button>
         </a>
     </div>

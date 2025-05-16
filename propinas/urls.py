@@ -16,7 +16,17 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from Cliente.views import ClientLogIn, NewClient, ClienteInicio
+from Trabajador.views import TrabajadorLogIn, TrabajadorInicio
+from Servicio.views import NewOrder, gestionar_estado_servicio_simple
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('LogIn/', ClientLogIn),
+    path('NewClient/',NewClient),
+    path('ClienteInicio/', ClienteInicio, name= "InicioC"),
+    path('LogIn_2/',TrabajadorLogIn),
+    path('TrabajadorInicio/',TrabajadorInicio, name= "InicioT"),
+    path('NewOrder/',NewOrder),
+   path('EditOrder/', gestionar_estado_servicio_simple, name='gestionar_estado_simple')
 ]
