@@ -85,29 +85,59 @@
 </head>
 <body>
     <div class="container">
-        <div class="info-item">
-            <span class="info-label">Cliente:</span>
-            <span class="info-value">4</span>
-        </div>
-        <div class="info-item">
-            <span class="info-label">Mesa:</span>
-            <span class="info-value">4</span>
-        </div>
-        <div class="info-item">
-            <span class="info-label">Activo:</span>
-            <span class="info-value">Activo</span>
-        </div>
+        <h1>TU SERVICIO</h1>
+        {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        <form action="{% url 'Orden' %}" method="post">
+            {% csrf_token %}
+            <div class="info-item">
+                <span class="info-label">servicio ID:</span>
+                <span class="info-value"># {{servicio.id}}</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">fecha:</span>
+                <span class="info-value">{{servicio.fecha}}</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Cliente:</span>
+                <span class="info-value">{{servicio.id_cliente}}</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Trabajador:</span>
+                <span class="info-value">{{trabajador.nombre}}</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Activo:</span>
+                <span class="info-value">{{servicio.activa}}</span>
+            </div>
+            <div class="info-item">
+                <label for="Puntuacion">Puntuacion:</label>
+                <select name="Puntuacion" id="Puntuacion">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>
+            </div>
 
-        <div class="order-details">
-            <h2 class="order-title">Pedido:</h2>
-            <p>Pizza</p>
-            <p>Arroz</p>
-            <p>Jugo</p>
-            <p>Coca Cola</p>
-        </div>
-        <a href="Cliente_INICIO.html" class="nav-button">
-            <button class="send-button">Salir</button>
-        </a>
+            <input type="hidden" name="id_cliente" value="{{servicio.id_cliente}}">
+            <input type="hidden" name="servicio_id" value="{{ servicio.id }}">
+            <input  id="nota" name="nota" type="text" placeholder="Que la parecio el servicio?" style="width: 100%; height: 150px; box-sizing: border-box;">
+
+            <div class="info-item">
+                <span class="info-label">Propina:</span>
+                <input type="text" name="Propina" placeholder="Propina voluntaria (efectivo)">
+                <button name="send" class="send-button" value="1">✔️</button>
+            </div>
+
+            <button name="send" class="send-button" value="0">Guardar</button>
+        </form>
     </div>
 </body>
 </html>

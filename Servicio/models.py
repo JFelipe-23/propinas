@@ -13,3 +13,11 @@ class Servicio(models.Model):
 
     def __str__(self):
         return f"Servicio #{self.id} - {self.fecha}"
+    
+class Propina(models.Model):
+    ID = models.AutoField(primary_key=True)
+    Cantidad = models.DecimalField(max_digits=10, decimal_places=2)
+    servicio = models.OneToOneField(Servicio, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"Propina ID: {self.ID} - Cantidad: {self.Cantidad}"

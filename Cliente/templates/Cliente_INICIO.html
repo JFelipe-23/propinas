@@ -22,10 +22,11 @@
         .container {
             display: flex;
             flex-direction: column;
-            align-items: center;
-            padding: 20px;
-            width: 90%;
+            width: 100%;
             max-width: 400px;
+            background-color: #5e35b1;
+            padding: 20px;
+            border-radius: 1rem;
             box-sizing: border-box;
         }
 
@@ -89,13 +90,23 @@
 </head>
 <body>
     <div class="container">
-        <div class="order-list">
-            {% for servicio in servicios %}
-            <a href="Order.html" class="order-button">  <div class="order-item-pedido">Pedido</div>
-                <div>{{ servicio["fecha"] }}</div>
-                <div>ID {{ servicio["ID"] }}</div>
-            </a>
+        <h1>INICIO</h1>
+        {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
             {% endfor %}
+        </ul>
+        {% endif %}
+        <div class="order-list">
+            <form method="post">
+                {% csrf_token %}
+                {% for servicio in servicios %}
+                    <input type="hidden" name="servicio_id" value="{{ servicio.id }}">
+                    <button class="order-button">Pedido #{{servicio.id}} ({{servicio.fecha}}) -> {{servicio.activa}}</button>
+                    <p></p>
+                {% endfor %}
+            </form>
         </div>
         <a href="http://127.0.0.1:8000/LogIn/" class="nav-button">
             <button class="exit-button">Salir</button>

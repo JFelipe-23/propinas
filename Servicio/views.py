@@ -41,8 +41,6 @@ def gestionar_estado_servicio_simple(request):
         try:
             servicio_id = request.POST['servicio_id']
             nuevo_estado = request.POST['activa']
-            print(servicio_id)
-            print(nuevo_estado)
             servicio = Servicio.objects.get(id=servicio_id)
             servicio.activa = nuevo_estado
             servicio.save()

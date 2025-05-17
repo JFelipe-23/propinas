@@ -21,11 +21,13 @@
         .container {
             display: flex;
             flex-direction: column;
-            align-items: center;
+            width: 100%;
+            max-width: 400px;
+            background-color: #5e35b1;
             padding: 20px;
-            width: 90%; /* Hace que el contenedor sea un poco más ancho */
-            max-width: 400px; /* Evita que el contenedor se vuelva demasiado ancho en pantallas grandes */
-            box-sizing: border-box; /* Incluye el relleno en el ancho total */
+            border-radius: 1rem;
+            box-sizing: border-box;
+            align-items: center;
         }
         h1 {
             font-size: 2.5rem;
@@ -78,6 +80,13 @@
 <body>
     <div class="container">
         <h1>BIENVENIDO</h1>
+        {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
         <form method="post">
             {% csrf_token %}
             <div class="form-container">
