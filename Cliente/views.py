@@ -1,8 +1,6 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.contrib import messages
-from django.http import HttpResponse
-from django.template import loader
 from Servicio.models import Servicio,Propina
 from Cliente.models import Cliente
 from Trabajador.models import Trabajador
@@ -25,6 +23,8 @@ def ClientLogIn(request):
     return render(request, 'Cliente.html', {'form': form})
 
 def NewClient(request):
+    if not request.session.get('LogInT', False):
+        return redirect('LogInT')
     if request.method == 'POST':
         form = Cliente_NEW(request.POST)
         if form.is_valid():

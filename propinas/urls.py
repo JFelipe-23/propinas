@@ -18,16 +18,17 @@ from django.contrib import admin
 from django.urls import path
 from Cliente.views import ClientLogIn, NewClient, ClienteInicio, Order
 from Trabajador.views import TrabajadorLogIn, TrabajadorInicio
-from Servicio.views import NewOrder, gestionar_estado_servicio_simple
+from Servicio.views import NewOrder, gestionar_estado_servicio_simple, Inicio
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('LogIn/', ClientLogIn),
     path('NewClient/',NewClient),
     path('ClienteInicio/', ClienteInicio, name= "InicioC"),
-    path('LogIn_2/',TrabajadorLogIn),
+    path('LogIn_2/',TrabajadorLogIn , name= "LogInT"),
     path('TrabajadorInicio/',TrabajadorInicio, name= "InicioT"),
     path('NewOrder/',NewOrder),
     path('EditOrder/', gestionar_estado_servicio_simple, name='gestionar_estado_simple'),
-    path('Order/',Order, name= "Orden")
+    path('Order/',Order, name= "Orden"),
+    path('', Inicio)
 ]

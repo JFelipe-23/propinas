@@ -8,6 +8,8 @@ from .forms import ServicioF, ServicioBusquedaForm
 
 
 def  NewOrder(request):
+    if not request.session.get('LogInT', False):
+        return redirect('LogInT')
     if request.method == 'POST':
         form = ServicioF(request.POST, opciones=buscarClientes)
         if form.is_valid():
@@ -26,6 +28,8 @@ def  NewOrder(request):
     return render(request, 'NEW_Order.html',{'form': form})
 
 def gestionar_estado_servicio_simple(request):
+    if not request.session.get('LogInT', False):
+        return redirect('LogInT')
     resultados = []
     form_busqueda = ServicioBusquedaForm()
 
@@ -53,6 +57,8 @@ def gestionar_estado_servicio_simple(request):
         'resultados': resultados,
     }
     return render(request, 'EDIT_Order.html', context)
+def Inicio(request):
+    return render(request, 'INICIO.html')
 
 def buscarClientes():
     clientes =  Cliente.objects.values_list('cc', flat=True)

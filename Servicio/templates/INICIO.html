@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Menú de Meseros</title>
+    <title>INICIO</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
     <style>
         body {
@@ -80,15 +80,7 @@
         }
 
         .new-order-icon::before {
-            content: "📄"; /* Icono de documento */
-        }
-
-        .order-icon::before {
-            content: "✏️"; /* Icono de lápiz/editar */
-        }
-
-        .log-out-icon::before {
-            content: "🚪"; /* Icono de puerta/salida */
+            content: "🧑‍🏭"; /* Icono de documento */
         }
 
     </style>
@@ -97,22 +89,14 @@
     <div class="container">
         <h1>INICIO</h1>
         <div class="nav-buttons">
-            <a href="http://127.0.0.1:8000/NewClient/" class="nav-button" >
-                <span class="icon new-client-icon" ></span>
-                NEW CLIENT
+            <a href="http://127.0.0.1:8000/LogIn/" class="nav-button">
+                <span class="icon new-client-icon"></span>
+                CLIENT
             </a>
-            <a href="http://127.0.0.1:8000/NewOrder/" class="nav-button">
+            <a href="http://127.0.0.1:8000/LogIn_2/" class="nav-button">
                 <span class="icon new-order-icon"></span>
-                NEW ORDER
+                TRABAJADOR
             </a>
-            <a href="http://127.0.0.1:8000/EditOrder/" class="nav-button">
-                <span class="icon order-icon"></span>
-                ORDER
-            </a>
-            <form method="post">
-                {% csrf_token %}
-                <button class="nav-button" type="submit">LOG OUT</button>
-            </form>
         </div>
     </div>
 </body>
