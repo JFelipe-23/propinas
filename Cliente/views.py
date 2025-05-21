@@ -1,9 +1,12 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.contrib import messages
+import webbrowser, pyautogui
+from time import sleep
+
 from Servicio.models import Servicio,Propina
 from Cliente.models import Cliente
-from Trabajador.models import Trabajador
+from Trabajador.models import Trabajador, Local
 
 from .forms import ClienteLogIn, Cliente_NEW
 
@@ -11,7 +14,6 @@ def ClientLogIn(request):
     if request.method == 'POST':
         form = ClienteLogIn(request.POST)
         if form.is_valid():
-            # Procesa los datos del formulario aquí
             Cedula = form.cleaned_data['cc']
             try:
                 url_redireccion = reverse('InicioC') + f'?dato={Cedula}'
@@ -25,24 +27,25 @@ def ClientLogIn(request):
 def NewClient(request):
     if not request.session.get('LogInT', False):
         return redirect('LogInT')
+    email = request.GET.get('dato')
     if request.method == 'POST':
         form = Cliente_NEW(request.POST)
         if form.is_valid():
-            # Procesa los datos del formulario aquí
             Cedula = form.cleaned_data['cc']
             Nombre = form.cleaned_data['nombre']
-            if Cliente.objects.values('cc').filter(cc = Cedula)==[]:
+            if len(Cliente.objects.values('cc').filter(cc = Cedula))==0:
                 try:
                     cliente = Cliente(cc=Cedula,nombre=Nombre)
                     cliente.save()
-                    return redirect('InicioT')
+                    url_redireccion = reverse('InicioT') + f'?dato={email}'
+                    return redirect(url_redireccion)
                 except:
-                    messages.info(request, 'Ya existe el Usuario!')
+                    messages.info(request, 'ingreso un dato erroneo!')
             else:
                 messages.info(request, 'Ya existe el Usuario!')
     else:
         form = Cliente_NEW()
-    return render(request, 'NEW_Cliente.html', {'form': form})
+    return render(request, 'NEW_Cliente.html', {'form': form,'email':email})
 
 def Order(request):
     Cedula = request.POST.get('id_cliente')
@@ -72,6 +75,26 @@ def Order(request):
                 messages.info(request, 'Propina invalida o Ya existe!')
                 url_redireccion = reverse('InicioC') + f'?dato={Cedula}'
                 return redirect(url_redireccion)
+        if request.POST.get('send')=="2":
+            ID = request.POST.get('servicio_id')
+            TrabajadorID = request.POST.get('Trabajador_id')
+            puntuacion = int(request.POST.get('Puntuacion'))
+            cliente = Cliente.objects.get(cc=Cedula)
+            trabajador = Trabajador.objects.get(cc=TrabajadorID)
+            Numero = str(request.POST.get('Numero'))
+            if Numero[0] == "3":
+                Url=f"https://web.whatsapp.com/send?phone=+57{Numero}"
+                webbrowser.open(Url)
+                sleep(10)
+                pyautogui.typewrite(f"{cliente.nombre} Te acaba de enviar una recomendacion del restaurante ({trabajador.id_local}), con una puntacion de {puntuacion} de 5, atendido por {trabajador.nombre}")
+                pyautogui.press('enter')
+                url_redireccion = reverse('InicioC') + f'?dato={Cedula}'
+                return redirect(url_redireccion)
+            else:
+                messages.info(request, 'El numero tiene que empesar por 3')
+                url_redireccion = reverse('InicioC') + f'?dato={Cedula}'
+                return redirect(url_redireccion)
+            
     return render(request, 'Order.html')
 
 def ClienteInicio(request):

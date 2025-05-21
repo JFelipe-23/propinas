@@ -23,11 +23,11 @@ from Servicio.views import NewOrder, gestionar_estado_servicio_simple, Inicio
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('LogIn/', ClientLogIn),
-    path('NewClient/',NewClient),
+    path('NewClient/',NewClient, name= "NewC"),
     path('ClienteInicio/', ClienteInicio, name= "InicioC"),
     path('LogIn_2/',TrabajadorLogIn , name= "LogInT"),
     path('TrabajadorInicio/',TrabajadorInicio, name= "InicioT"),
-    path('NewOrder/',NewOrder),
+    path('NewOrder/',NewOrder, name= "NewO"),
     path('EditOrder/', gestionar_estado_servicio_simple, name='gestionar_estado_simple'),
     path('Order/',Order, name= "Orden"),
     path('', Inicio)

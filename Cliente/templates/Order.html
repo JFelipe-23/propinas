@@ -23,8 +23,6 @@
         .container {
             display: flex;
             flex-direction: column;
-            width: 100%; /* El contenedor ocupa todo el ancho disponible */
-            max-width: 400px; /* Ancho máximo para el contenedor */
             background-color: #5e35b1; /* Un tono de morado más claro para el contenedor */
             padding: 20px;
             border-radius: 1rem; /* Bordes redondeados para el contenedor */
@@ -128,13 +126,26 @@
 
             <input type="hidden" name="id_cliente" value="{{servicio.id_cliente}}">
             <input type="hidden" name="servicio_id" value="{{ servicio.id }}">
+            <input type="hidden" name="Trabajador_id" value="{{ servicio.id_trabajador }}">
             <input  id="nota" name="nota" type="text" placeholder="Que la parecio el servicio?" style="width: 100%; height: 150px; box-sizing: border-box;">
 
+            <p></p>
+
             <div class="info-item">
-                <span class="info-label">Propina:</span>
+                <span class="info-label">Propina: </span>
                 <input type="text" name="Propina" placeholder="Propina voluntaria (efectivo)">
                 <button name="send" class="send-button" value="1">✔️</button>
             </div>
+
+            <p></p>
+
+            <div class="info-item">
+                <span class="info-label">Compartir: </span>
+                <input type="text" name="Numero" placeholder="Numero de Whatsapp">
+                <button name="send" class="send-button" value="2">✔️</button>
+            </div>
+
+            <p></p>
 
             <button name="send" class="send-button" value="0">Guardar</button>
         </form>

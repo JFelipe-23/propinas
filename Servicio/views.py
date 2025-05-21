@@ -1,4 +1,5 @@
 from django.shortcuts import render,redirect, get_object_or_404
+from django.urls import reverse
 from django.contrib import messages
 from Cliente.models import Cliente
 from Trabajador.models import Trabajador
@@ -6,51 +7,62 @@ from Trabajador.models import Trabajador
 from .models import Servicio
 from .forms import ServicioF, ServicioBusquedaForm
 
+emailist = []
 
 def  NewOrder(request):
     if not request.session.get('LogInT', False):
         return redirect('LogInT')
+    email = request.GET.get('dato')
     if request.method == 'POST':
         form = ServicioF(request.POST, opciones=buscarClientes)
         if form.is_valid():
             # Procesa los datos del formulario aquí
             clienteid = int(form.cleaned_data['id_cliente'])
             cliente = Cliente.objects.get(pk=clienteid)
-            trabajador = Trabajador.objects.get(pk=2666954585)
+            trabajador = Trabajador.objects.get(correo=email)
             try:
                 servicio = Servicio(activa= True,calificacion=3,nota=None, id_cliente=cliente, id_trabajador=trabajador)
                 servicio.save()
-                return redirect('InicioT')
+                url_redireccion = reverse('InicioT') + f'?dato={email}'
+                return redirect(url_redireccion)
             except:
-                return redirect('InicioT')
+                url_redireccion = reverse('InicioT') + f'?dato={email}'
+                return redirect(url_redireccion)
     else:
-        form = ServicioF()
+        form = ServicioF(opciones=buscarClientes)
     return render(request, 'NEW_Order.html',{'form': form})
 
 def gestionar_estado_servicio_simple(request):
+    email = request.GET.get('dato')
+    emailist.append(email)
     if not request.session.get('LogInT', False):
         return redirect('LogInT')
     resultados = []
     form_busqueda = ServicioBusquedaForm()
-
     if request.method == 'GET':
         form_busqueda = ServicioBusquedaForm(request.GET, opciones=buscarClientes)
         if form_busqueda.is_valid():
             activa = form_busqueda.cleaned_data.get('activa')
             id_cliente = form_busqueda.cleaned_data.get('id_cliente')
 
-            resultados = Servicio.objects.filter(activa = activa, id_cliente = id_cliente).values('id','fecha','activa', 'id_cliente')
+            resultados = Servicio.objects.filter(activa = activa, id_cliente = id_cliente).values('id','fecha','activa', 'id_cliente').order_by('-fecha')
 
     elif request.method == 'POST' and 'servicio_id' in request.POST and 'activa' in request.POST:
-        try:
-            servicio_id = request.POST['servicio_id']
-            nuevo_estado = request.POST['activa']
-            servicio = Servicio.objects.get(id=servicio_id)
-            servicio.activa = nuevo_estado
-            servicio.save()
-            return redirect('gestionar_estado_simple') # Recarga la página para mostrar los cambios
-        except Servicio.DoesNotExist:
-            pass # Manejar si el servicio no existe (opcional)
+        if request.POST.get('Botton1')=='1':
+            try:
+                servicio_id = request.POST['servicio_id']
+                nuevo_estado = request.POST['activa']
+                servicio = Servicio.objects.get(id=servicio_id)
+                servicio.activa = nuevo_estado
+                servicio.save()
+                url_redireccion = reverse('gestionar_estado_simple') + f'?dato={emailist[0]}'
+                return redirect(url_redireccion)
+            except Servicio.DoesNotExist:
+                pass # Manejar si el servicio no existe (opcional)
+        if request.POST.get('Botton2')=='2':
+            print(email)
+            url_redireccion = reverse('InicioT') + f'?dato={emailist[0]}'
+            return redirect(url_redireccion)
 
     context = {
         'form_busqueda': form_busqueda,

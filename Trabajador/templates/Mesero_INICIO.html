@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -97,21 +98,27 @@
     <div class="container">
         <h1>INICIO</h1>
         <div class="nav-buttons">
-            <a href="http://127.0.0.1:8000/NewClient/" class="nav-button" >
-                <span class="icon new-client-icon" ></span>
-                NEW CLIENT
-            </a>
-            <a href="http://127.0.0.1:8000/NewOrder/" class="nav-button">
-                <span class="icon new-order-icon"></span>
-                NEW ORDER
-            </a>
-            <a href="http://127.0.0.1:8000/EditOrder/" class="nav-button">
-                <span class="icon order-icon"></span>
-                ORDER
-            </a>
             <form method="post">
                 {% csrf_token %}
-                <button class="nav-button" type="submit">LOG OUT</button>
+                <button class="nav-button" type="submit" name="Botton1" value="1">
+                    <span class="icon new-client-icon" ></span>
+                    NEW ORDER
+                </button>
+                <p></p>
+                <button class="nav-button" name="Botton2" value="2">
+                    <span class="icon new-order-icon" ></span>
+                    NEW ORDER
+                </button>
+                <p></p>
+                <button class="nav-button" name="Botton3" value="3">
+                    <span class="icon order-icon" ></span>
+                    EDIT ORDER
+                </button>
+                <p></p>
+                <button class="nav-button" type="submit" name="Botton4" value="4">
+                    <span class="log-out-icon" ></span>
+                    LOG OUT
+                </button>
             </form>
         </div>
     </div>
