@@ -33,8 +33,6 @@ def  NewOrder(request):
     return render(request, 'NEW_Order.html',{'form': form})
 
 def gestionar_estado_servicio_simple(request):
-    email = request.GET.get('dato')
-    emailist.append(email)
     if not request.session.get('LogInT', False):
         return redirect('LogInT')
     resultados = []
@@ -48,25 +46,21 @@ def gestionar_estado_servicio_simple(request):
             resultados = Servicio.objects.filter(activa = activa, id_cliente = id_cliente).values('id','fecha','activa', 'id_cliente').order_by('-fecha')
 
     elif request.method == 'POST' and 'servicio_id' in request.POST and 'activa' in request.POST:
-        if request.POST.get('Botton1')=='1':
-            try:
-                servicio_id = request.POST['servicio_id']
-                nuevo_estado = request.POST['activa']
-                servicio = Servicio.objects.get(id=servicio_id)
-                servicio.activa = nuevo_estado
-                servicio.save()
-                url_redireccion = reverse('gestionar_estado_simple') + f'?dato={emailist[0]}'
-                return redirect(url_redireccion)
-            except Servicio.DoesNotExist:
-                pass # Manejar si el servicio no existe (opcional)
-        if request.POST.get('Botton2')=='2':
-            print(email)
-            url_redireccion = reverse('InicioT') + f'?dato={emailist[0]}'
-            return redirect(url_redireccion)
-
+        try:
+            servicio_id = request.POST['servicio_id']
+            nuevo_estado = request.POST['activa']
+            servicio = Servicio.objects.get(id=servicio_id)
+            servicio.activa = nuevo_estado
+            servicio.save()
+            return redirect('LogInT')
+        except Servicio.DoesNotExist:
+            pass
+        
+    email = request.GET.get('dato')
     context = {
         'form_busqueda': form_busqueda,
         'resultados': resultados,
+        'email':email
     }
     return render(request, 'EDIT_Order.html', context)
 def Inicio(request):

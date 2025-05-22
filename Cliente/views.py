@@ -51,28 +51,26 @@ def Order(request):
     Cedula = request.POST.get('id_cliente')
     if request.method=='POST':
         if request.POST.get('send')=="0":
-            ID = request.POST.get('servicio_id')
-            nota = request.POST.get('nota')
-            puntuacion = int(request.POST.get('Puntuacion'))
-            servicio = Servicio.objects.get(id=ID)
-            servicio.nota = nota
-            servicio.calificacion = puntuacion
-            servicio.activa = False
-            servicio.save()
             url_redireccion = reverse('InicioC') + f'?dato={Cedula}'
             return redirect(url_redireccion)
         if request.POST.get('send')=="1":
             try:
-                propina = float(request.POST.get('Propina'))
                 ID = request.POST.get('servicio_id')
+                nota = request.POST.get('nota')
+                propina = float(request.POST.get('Propina'))
+                puntuacion = int(request.POST.get('Puntuacion'))
                 servicio = Servicio.objects.get(id=ID)
+                servicio.nota = nota
+                servicio.calificacion = puntuacion
+                servicio.activa = False
+                servicio.save()
                 propina2 = Propina(Cantidad = propina, servicio = servicio)
                 propina2.save()
-                messages.info(request, 'Propina Valida!')
+                messages.info(request, '---Gracias---')
                 url_redireccion = reverse('InicioC') + f'?dato={Cedula}'
                 return redirect(url_redireccion)
             except:
-                messages.info(request, 'Propina invalida o Ya existe!')
+                messages.info(request, 'Ubo un Error vuelve a intentarlo!')
                 url_redireccion = reverse('InicioC') + f'?dato={Cedula}'
                 return redirect(url_redireccion)
         if request.POST.get('send')=="2":

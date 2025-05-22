@@ -143,13 +143,17 @@
                                 <option value="True">True</option>
                                 <option value="False">False</option>
                             </select>
-                            <button class="send-button" type="submit" name="Botton1" value="1">Buscar</button>
-                            <button class="send-button" type="submit" name="Botton2" value="2">Home</button>
+                            <input type="hidden" name="email" value="{{ email }}">
+                            <button class="send-button" type="submit">Buscar</button>
                         </form>
                     </li>
                 {% endfor %}
             </ul>
         {% endif %}
+        <p></p>
+        <a href="http://127.0.0.1:8000/LogIn_2/" class="nav-button">
+            <button class="send-button" type="submit">Salir</button>
+        </a>
     </div>
 </body>
 </html>
