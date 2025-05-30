@@ -92,6 +92,23 @@ def Order(request):
                 messages.info(request, 'El numero tiene que empesar por 3')
                 url_redireccion = reverse('InicioC') + f'?dato={Cedula}'
                 return redirect(url_redireccion)
+        if request.POST.get('send')=="3":
+            try:
+                ID = request.POST.get('servicio_id')
+                nota = request.POST.get('nota')
+                puntuacion = int(request.POST.get('Puntuacion'))
+                servicio = Servicio.objects.get(id=ID)
+                servicio.nota = nota
+                servicio.calificacion = puntuacion
+                servicio.activa = False
+                servicio.save()
+                messages.info(request, '---Gracias---')
+                url_redireccion = reverse('InicioC') + f'?dato={Cedula}'
+                return redirect(url_redireccion)
+            except:
+                messages.info(request, 'Ubo un Error vuelve a intentarlo!')
+                url_redireccion = reverse('InicioC') + f'?dato={Cedula}'
+                return redirect(url_redireccion)
             
     return render(request, 'Order.html')
 
